@@ -1,7 +1,7 @@
-name: "reading_lists"
+name: reading_lists
 output_dir: ../docs
 navbar:
-  title: "reading_lists"
+  title: reading_lists
   left:
   - text: Home
     href: index.html
@@ -9,6 +9,10 @@ navbar:
     href: about.html
   - text: License
     href: license.html
+  right:
+  - icon: fa-github
+    text: Source code
+    href: https://github.com/stephenslab/reading_lists
 output:
   workflowr::wflow_html:
     toc: yes
