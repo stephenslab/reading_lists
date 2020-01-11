@@ -1,0 +1,101 @@
+---
+title: "Empirical Bayes reading list"
+author: "Matthew Stephens"
+date: "2020-01-11"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+This document summarizes the reading you might do if you would like to know more about
+our work related to Empirical Bayes methods. If you want more background on where these ideas came from and the history, the monograph by [Efron](https://statweb.stanford.edu/~ckirby/brad/LSI/monograph_CUP.pdf) is the place to go.
+For a very simple intuitive introduction to Empirical Bayes see the blog post by [Robinson](http://varianceexplained.org/r/empirical_bayes_baseball/).
+
+
+## The normal means model
+
+The starting point for this work is the following model,
+sometimes known as the "normal means" model:
+$$X_j \sim N(\theta_j,s_j^2) \qquad j=1,\dots,n.$$
+
+where $X_j$ is observed, $s_j$ is assumed known, and the means $\theta_j$ are to be estimated.
+
+The Empirical Bayes (EB)  approach  to fitting this model assumes that the $\theta_j$
+come from some prior distributions, $g\in \cal{G}$, where $\cal{G}$ is a suitably-chosen
+family of distributions (more on this later):
+$$\theta_j \sim g(\cdot).$$
+Assuming independence across $j$, the likelihood for $g$ is:
+$$L(g):= p(X | g) = \prod_j p(X_j|g) = \prod_j \int p(X_j | \theta_j) g(\theta_j) d\theta_j.$$
+
+
+The EB approach involves two steps:
+
+- Estimate $g$ by maximum likelihood, $\hat{g} = \arg \max_g L(g)$.
+- Compute posterior distributions $p(\theta_j | X_j, \hat{g})$.
+
+
+For suitably-chosen $\cal{G}$ both steps can be done analytically. See, for example, [Stephens, 2017](https://doi.org/10.1093/biostatistics/kxw041).
+
+I used to think that the normal means model 
+was simply a "toy model" studied by statisticians for their own amusement.
+In particular the idea that the standard deviations $s_j$ would ever be "known" seemed unlikely.
+Now I see this model as extremely useful for practical applications, 
+and I have been working with students and postdoctoral researchers to develop and
+apply methods developed based on this  model to solve several important applied problems, including
+multiple-testing/FDR, sparse factor analysis, large-scale multiple regression.
+
+
+## A reading list
+
+### Core papers
+
+Start with [Stephens, 2017](https://doi.org/10.1093/biostatistics/kxw041), which applies
+these ideas to multiple testing and FDR in the simplest case, for various choices of $\cal{G}$ that
+are unimodal and centered on 0. The relevant software packages are [ashr](https://github.com/stephens999/ashr) and [ebnm](https://github.com/stephenslab/ebnm).
+
+Several papers build on this basic theme to apply the methods to other settings:
+
+- [Urbut et al](http://dx.doi.org/10.1038/s41588-018-0268-8) do multiple testing where the tests are "multivariate" (ie each unit, say gene for example, is being tested for something under several different conditions). The software is [mashr](https://github.com/stephenslab/mashr).
+
+- [Xing et al](https://arxiv.org/abs/1605.07787) do smoothing ("non-parametric regression") for poisson and gaussian data, using wavelet denoising. The software is [smashr](https://github.com/stephenslab/smashr). This application is one where similar ideas have been used before, so there is a lot of previous literature related to this. A classic reference is [Johnstone and Silverman](https://projecteuclid.org/euclid.aos/1123250227).
+
+- [Wang and Stephens](https://arxiv.org/abs/1802.06931) does matrix factorization (closely related to sparse PCA or sparse factor analysis). The software is [flashr](https://github.com/stephenslab/flashr).
+
+This last paper uses variational methods to fit the model. For background on these see
+the review by [Blei](https://arxiv.org/abs/1601.00670).
+
+
+### Additional reading
+
+There are several other papers that deal with various details that might be of interest:
+
+- [Gerard and Stephens](http://dx.doi.org/10.1093/biostatistics/kxy029) deals with the (univariate) multiple testing situation when the tests are not independent, but correlated due to unmeasured
+confounding factors. This paper assumes that we have access to the raw data that were
+used to conduct the tests, which allows the correlations among tests to be  estimated.
+The software is the mouthwash function in the [vicar](https://github.com/dcgerard/vicar) package.
+
+- [Sun and Stephens](https://arxiv.org/abs/1812.07488) also deals with correlated tests, but in situations where the correlation cannot be directly estimated -- we assume we only have $z$ scores from the tests. The software
+is [cashr](https://github.com/stephenslab/cashr)
+
+- [Lu and Stephens](http://stephenslab.uchicago.edu/assets/papers/lu-stephens-2016.pdf) deals with shrinkage estimation of variances (rather than means).
+The software is [vashr](https://github.com/stephenslab/vashr).
+
+- [Lu and Stephens](https://arxiv.org/abs/1901.10679) deals with the fact that in practice the standard errors $s_j$ are not
+known, but estimated from data. The methods here are in `ashr`.
+
+- The PhD thesis by [Lu](http://stephenslab.uchicago.edu/assets/papers/mengyin-thesis.pdf), chapter 4, develops a generalized version of the `ashr` ideas,
+beyond the normal case.
+
+- [Kim et al](https://doi.org/10.1080/10618600.2019.1689985) develops optimization methods for
+solving the non-parametric versions of the EBNM problem (and other problems). The software is
+[mixsqp](https://github.com/stephenslab/mixsqp).
+
+### Additional software
+
+There are various unpublished projects where software has been developed or is in development (warning: may be under construction!)
+
+- [dashr](https://github.com/stephenslab/dashr) performs EB shrinkage estimation for multinomial proportions using dirichlet priors
+
+- [flashier](https://github.com/willwerscheid/flashier) is an extension of (flashr)[] that is faster for sparse and large data.
+
+- [ebpm](https://github.com/stephenslab/ebpm) tackles the EB poisson means problem (analogous to normal means, but Poisson data).
