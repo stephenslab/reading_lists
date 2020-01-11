@@ -8,4 +8,21 @@ editor_options:
   chunk_output_type: console
 ---
 
-Welcome to my research website.
+If you want to read about my recent and on-going research you have come to the right place!
+
+# Organization
+
+I try to get all the students working with me to think about how to organize their work.
+If they work in R -- and many of them do -- then I ask them to use the
+R package [workflowr](https://jdblischak.github.io/workflowr/index.html) to help them
+organize their work. If you want to work with me you should read [Blischak et al](https://doi.org/10.12688/f1000research.20843.1 which describes the ideas 
+behind this package. Even if you do not use R, the ideas may help
+you develop your own workflow. 
+
+# Research 
+
+Here are reading lists on some topics of interest:
+
+- [Empirical Bayes and ``adaptive shrinkage"](empirical_bayes.html)
+
+
