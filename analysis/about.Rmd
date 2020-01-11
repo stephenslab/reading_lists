@@ -7,4 +7,4 @@ editor_options:
   chunk_output_type: console
 ---
 
-Describe your project.
+This repo is intended to provide reading lists and background on various research projects in the Stephens lab.
