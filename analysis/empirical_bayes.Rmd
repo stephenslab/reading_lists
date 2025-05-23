@@ -51,7 +51,7 @@ multiple-testing/FDR, sparse factor analysis, large-scale multiple regression.
 
 Start with [Stephens, 2017](https://doi.org/10.1093/biostatistics/kxw041), which applies
 these ideas to multiple testing and FDR in the simplest case, for various choices of $\cal{G}$ that
-are unimodal and centered on 0. The relevant software packages are [ashr](https://github.com/stephens999/ashr) and [ebnm](https://github.com/stephenslab/ebnm).
+are unimodal and centered on 0. The relevant software packages are [ashr](https://github.com/stephens999/ashr) and [ebnm](https://github.com/stephenslab/ebnm). The `ebnm` software is described in more detail [here](https://arxiv.org/abs/2110.00152) which is also a good paper to read.
 
 Several papers build on this basic theme to apply the methods to other settings:
 
