@@ -15,25 +15,51 @@
 
 <title>Empirical Bayes reading list</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -46,32 +72,8 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
+
 
 
 
@@ -81,10 +83,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -101,40 +99,16 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -162,7 +136,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -174,7 +148,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -184,11 +158,28 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.parent().addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -200,13 +191,12 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -214,16 +204,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -326,7 +309,7 @@ div.tocify {
 
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
+<div class="row">
 <div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
@@ -340,7 +323,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -360,20 +343,19 @@ div.tocify {
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/stephenslab/reading_lists">
+    <span class="fa fa-github"></span>
+     
+    Source code
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<!-- Add a small amount of space between sections. -->
-<style type="text/css">
-div.section {
-  padding-top: 12px;
-}
-</style>
-
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
@@ -386,7 +368,9 @@ div.section {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -395,7 +379,9 @@ div.section {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -404,17 +390,27 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-01-11
+<strong>Last updated:</strong> 2025-05-23
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 0
 </p>
 <p>
-<strong>Knit directory:</strong> <code>reading_lists/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+<strong>Knit directory:</strong> <code>reading_lists/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
 </p>
 <p>
-This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.1). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -423,33 +419,68 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongb3809c1"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> b3809c1 </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabreadingliststree235e643f3618d9b6c11cf9f2657f8f1cf62f20datargetblank235e643a">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/stephenslab/reading_lists/tree/235e643f3618d9b6c11cf9f2657f8f1cf62f20da" target="_blank">235e643</a>
+</a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongb3809c1" class="panel-collapse collapse">
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabreadingliststree235e643f3618d9b6c11cf9f2657f8f1cf62f20datargetblank235e643a"
+class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version
+<a href="https://github.com/stephenslab/reading_lists/tree/235e643f3618d9b6c11cf9f2657f8f1cf62f20da" target="_blank">235e643</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+
+Unstaged changes:
+    Modified:   reading_lists.Rproj
 
 </code></pre>
 <p>
-Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
 </p>
 </div>
 </div>
@@ -458,9 +489,13 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
-
 <p>
-These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/empirical_bayes.Rmd</code>) and
+HTML (<code>docs/empirical_bayes.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -489,7 +524,24 @@ Message
 Rmd
 </td>
 <td>
-b3809c1
+<a href="https://github.com/stephenslab/reading_lists/blob/235e643f3618d9b6c11cf9f2657f8f1cf62f20da/analysis/empirical_bayes.Rmd" target="_blank">235e643</a>
+</td>
+<td>
+Matthew Stephens
+</td>
+<td>
+2025-05-23
+</td>
+<td>
+workflowr::wflow_publish("analysis/empirical_bayes.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/reading_lists/f1ec6d687df499e8e5cd22cdc1b5d8c52d8c0399/docs/empirical_bayes.html" target="_blank">f1ec6d6</a>
 </td>
 <td>
 Matthew Stephens
@@ -498,7 +550,24 @@ Matthew Stephens
 2020-01-11
 </td>
 <td>
-wflow_publish(“analysis/empirical_bayes.Rmd”)
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/reading_lists/blob/b3809c1369460499cd0b9311ebbb325bcbfa7262/analysis/empirical_bayes.Rmd" target="_blank">b3809c1</a>
+</td>
+<td>
+Matthew Stephens
+</td>
+<td>
+2020-01-11
+</td>
+<td>
+wflow_publish("analysis/empirical_bayes.Rmd")
 </td>
 </tr>
 </tbody>
@@ -508,60 +577,158 @@ wflow_publish(“analysis/empirical_bayes.Rmd”)
 </div>
 </div>
 </div>
-<p>This document summarizes the reading you might do if you would like to know more about our work related to Empirical Bayes methods. If you want more background on where these ideas came from and the history, the monograph by <a href="https://statweb.stanford.edu/~ckirby/brad/LSI/monograph_CUP.pdf">Efron</a> is the place to go. For a very simple intuitive introduction to Empirical Bayes see the blog post by <a href="http://varianceexplained.org/r/empirical_bayes_baseball/">Robinson</a>.</p>
+<p>This document summarizes the reading you might do if you would like
+to know more about our work related to Empirical Bayes methods. If you
+want more background on where these ideas came from and the history, the
+monograph by <a
+href="https://statweb.stanford.edu/~ckirby/brad/LSI/monograph_CUP.pdf">Efron</a>
+is the place to go. For a very simple intuitive introduction to
+Empirical Bayes see the blog post by <a
+href="http://varianceexplained.org/r/empirical_bayes_baseball/">Robinson</a>.</p>
 <div id="the-normal-means-model" class="section level2">
 <h2>The normal means model</h2>
-<p>The starting point for this work is the following model, sometimes known as the “normal means” model: <span class="math display">\[X_j \sim N(\theta_j,s_j^2) \qquad j=1,\dots,n.\]</span></p>
-<p>where <span class="math inline">\(X_j\)</span> is observed, <span class="math inline">\(s_j\)</span> is assumed known, and the means <span class="math inline">\(\theta_j\)</span> are to be estimated.</p>
-<p>The Empirical Bayes (EB) approach to fitting this model assumes that the <span class="math inline">\(\theta_j\)</span> come from some prior distributions, <span class="math inline">\(g\in \cal{G}\)</span>, where <span class="math inline">\(\cal{G}\)</span> is a suitably-chosen family of distributions (more on this later): <span class="math display">\[\theta_j \sim g(\cdot).\]</span> Assuming independence across <span class="math inline">\(j\)</span>, the likelihood for <span class="math inline">\(g\)</span> is: <span class="math display">\[L(g):= p(X | g) = \prod_j p(X_j|g) = \prod_j \int p(X_j | \theta_j) g(\theta_j) d\theta_j.\]</span></p>
+<p>The starting point for this work is the following model, sometimes
+known as the “normal means” model: <span class="math display">\[X_j \sim
+N(\theta_j,s_j^2) \qquad j=1,\dots,n.\]</span></p>
+<p>where <span class="math inline">\(X_j\)</span> is observed, <span
+class="math inline">\(s_j\)</span> is assumed known, and the means <span
+class="math inline">\(\theta_j\)</span> are to be estimated.</p>
+<p>The Empirical Bayes (EB) approach to fitting this model assumes that
+the <span class="math inline">\(\theta_j\)</span> come from some prior
+distributions, <span class="math inline">\(g\in \cal{G}\)</span>, where
+<span class="math inline">\(\cal{G}\)</span> is a suitably-chosen family
+of distributions (more on this later): <span
+class="math display">\[\theta_j \sim g(\cdot).\]</span> Assuming
+independence across <span class="math inline">\(j\)</span>, the
+likelihood for <span class="math inline">\(g\)</span> is: <span
+class="math display">\[L(g):= p(X | g) = \prod_j p(X_j|g) = \prod_j \int
+p(X_j | \theta_j) g(\theta_j) d\theta_j.\]</span></p>
 <p>The EB approach involves two steps:</p>
 <ul>
-<li>Estimate <span class="math inline">\(g\)</span> by maximum likelihood, <span class="math inline">\(\hat{g} = \arg \max_g L(g)\)</span>.</li>
-<li>Compute posterior distributions <span class="math inline">\(p(\theta_j | X_j, \hat{g})\)</span>.</li>
+<li>Estimate <span class="math inline">\(g\)</span> by maximum
+likelihood, <span class="math inline">\(\hat{g} = \arg \max_g
+L(g)\)</span>.</li>
+<li>Compute posterior distributions <span
+class="math inline">\(p(\theta_j | X_j, \hat{g})\)</span>.</li>
 </ul>
-<p>For suitably-chosen <span class="math inline">\(\cal{G}\)</span> both steps can be done analytically. See, for example, <a href="https://doi.org/10.1093/biostatistics/kxw041">Stephens, 2017</a>.</p>
-<p>I used to think that the normal means model was simply a “toy model” studied by statisticians for their own amusement. In particular the idea that the standard deviations <span class="math inline">\(s_j\)</span> would ever be “known” seemed unlikely. Now I see this model as extremely useful for practical applications, and I have been working with students and postdoctoral researchers to develop and apply methods developed based on this model to solve several important applied problems, including multiple-testing/FDR, sparse factor analysis, large-scale multiple regression.</p>
+<p>For suitably-chosen <span class="math inline">\(\cal{G}\)</span> both
+steps can be done analytically. See, for example, <a
+href="https://doi.org/10.1093/biostatistics/kxw041">Stephens,
+2017</a>.</p>
+<p>I used to think that the normal means model was simply a “toy model”
+studied by statisticians for their own amusement. In particular the idea
+that the standard deviations <span class="math inline">\(s_j\)</span>
+would ever be “known” seemed unlikely. Now I see this model as extremely
+useful for practical applications, and I have been working with students
+and postdoctoral researchers to develop and apply methods developed
+based on this model to solve several important applied problems,
+including multiple-testing/FDR, sparse factor analysis, large-scale
+multiple regression.</p>
 </div>
 <div id="a-reading-list" class="section level2">
 <h2>A reading list</h2>
 <div id="core-papers" class="section level3">
 <h3>Core papers</h3>
-<p>Start with <a href="https://doi.org/10.1093/biostatistics/kxw041">Stephens, 2017</a>, which applies these ideas to multiple testing and FDR in the simplest case, for various choices of <span class="math inline">\(\cal{G}\)</span> that are unimodal and centered on 0. The relevant software packages are <a href="https://github.com/stephens999/ashr">ashr</a> and <a href="https://github.com/stephenslab/ebnm">ebnm</a>.</p>
-<p>Several papers build on this basic theme to apply the methods to other settings:</p>
+<p>Start with <a
+href="https://doi.org/10.1093/biostatistics/kxw041">Stephens, 2017</a>,
+which applies these ideas to multiple testing and FDR in the simplest
+case, for various choices of <span
+class="math inline">\(\cal{G}\)</span> that are unimodal and centered on
+0. The relevant software packages are <a
+href="https://github.com/stephens999/ashr">ashr</a> and <a
+href="https://github.com/stephenslab/ebnm">ebnm</a>. The
+<code>ebnm</code> software is described in more detail <a
+href="https://arxiv.org/abs/2110.00152">here</a> which is also a good
+paper to read.</p>
+<p>Several papers build on this basic theme to apply the methods to
+other settings:</p>
 <ul>
-<li><p><a href="http://dx.doi.org/10.1038/s41588-018-0268-8">Urbut et al</a> do multiple testing where the tests are “multivariate” (ie each unit, say gene for example, is being tested for something under several different conditions). The software is <a href="https://github.com/stephenslab/mashr">mashr</a>.</p></li>
-<li><p><a href="https://arxiv.org/abs/1605.07787">Xing et al</a> do smoothing (“non-parametric regression”) for poisson and gaussian data, using wavelet denoising. The software is <a href="https://github.com/stephenslab/smashr">smashr</a>. This application is one where similar ideas have been used before, so there is a lot of previous literature related to this. A classic reference is <a href="https://projecteuclid.org/euclid.aos/1123250227">Johnstone and Silverman</a>.</p></li>
-<li><p><a href="https://arxiv.org/abs/1802.06931">Wang and Stephens</a> does matrix factorization (closely related to sparse PCA or sparse factor analysis). The software is <a href="https://github.com/stephenslab/flashr">flashr</a>.</p></li>
+<li><p><a href="http://dx.doi.org/10.1038/s41588-018-0268-8">Urbut et
+al</a> do multiple testing where the tests are “multivariate” (ie each
+unit, say gene for example, is being tested for something under several
+different conditions). The software is <a
+href="https://github.com/stephenslab/mashr">mashr</a>.</p></li>
+<li><p><a href="https://arxiv.org/abs/1605.07787">Xing et al</a> do
+smoothing (“non-parametric regression”) for poisson and gaussian data,
+using wavelet denoising. The software is <a
+href="https://github.com/stephenslab/smashr">smashr</a>. This
+application is one where similar ideas have been used before, so there
+is a lot of previous literature related to this. A classic reference is
+<a href="https://projecteuclid.org/euclid.aos/1123250227">Johnstone and
+Silverman</a>.</p></li>
+<li><p><a href="https://arxiv.org/abs/1802.06931">Wang and Stephens</a>
+does matrix factorization (closely related to sparse PCA or sparse
+factor analysis). The software is <a
+href="https://github.com/stephenslab/flashr">flashr</a>.</p></li>
 </ul>
-<p>This last paper uses variational methods to fit the model. For background on these see the review by <a href="https://arxiv.org/abs/1601.00670">Blei</a>.</p>
+<p>This last paper uses variational methods to fit the model. For
+background on these see the review by <a
+href="https://arxiv.org/abs/1601.00670">Blei</a>.</p>
 </div>
 <div id="additional-reading" class="section level3">
 <h3>Additional reading</h3>
-<p>There are several other papers that deal with various details that might be of interest:</p>
+<p>There are several other papers that deal with various details that
+might be of interest:</p>
 <ul>
-<li><p><a href="http://dx.doi.org/10.1093/biostatistics/kxy029">Gerard and Stephens</a> deals with the (univariate) multiple testing situation when the tests are not independent, but correlated due to unmeasured confounding factors. This paper assumes that we have access to the raw data that were used to conduct the tests, which allows the correlations among tests to be estimated. The software is the mouthwash function in the <a href="https://github.com/dcgerard/vicar">vicar</a> package.</p></li>
-<li><p><a href="https://arxiv.org/abs/1812.07488">Sun and Stephens</a> also deals with correlated tests, but in situations where the correlation cannot be directly estimated – we assume we only have <span class="math inline">\(z\)</span> scores from the tests. The software is <a href="https://github.com/stephenslab/cashr">cashr</a></p></li>
-<li><p><a href="http://stephenslab.uchicago.edu/assets/papers/lu-stephens-2016.pdf">Lu and Stephens</a> deals with shrinkage estimation of variances (rather than means). The software is <a href="https://github.com/stephenslab/vashr">vashr</a>.</p></li>
-<li><p><a href="https://arxiv.org/abs/1901.10679">Lu and Stephens</a> deals with the fact that in practice the standard errors <span class="math inline">\(s_j\)</span> are not known, but estimated from data. The methods here are in <code>ashr</code>.</p></li>
-<li><p>The PhD thesis by <a href="http://stephenslab.uchicago.edu/assets/papers/mengyin-thesis.pdf">Lu</a>, chapter 4, develops a generalized version of the <code>ashr</code> ideas, beyond the normal case.</p></li>
-<li><p><a href="https://doi.org/10.1080/10618600.2019.1689985">Kim et al</a> develops optimization methods for solving the non-parametric versions of the EBNM problem (and other problems). The software is <a href="https://github.com/stephenslab/mixsqp">mixsqp</a>.</p></li>
+<li><p><a href="http://dx.doi.org/10.1093/biostatistics/kxy029">Gerard
+and Stephens</a> deals with the (univariate) multiple testing situation
+when the tests are not independent, but correlated due to unmeasured
+confounding factors. This paper assumes that we have access to the raw
+data that were used to conduct the tests, which allows the correlations
+among tests to be estimated. The software is the mouthwash function in
+the <a href="https://github.com/dcgerard/vicar">vicar</a>
+package.</p></li>
+<li><p><a href="https://arxiv.org/abs/1812.07488">Sun and Stephens</a>
+also deals with correlated tests, but in situations where the
+correlation cannot be directly estimated – we assume we only have <span
+class="math inline">\(z\)</span> scores from the tests. The software is
+<a href="https://github.com/stephenslab/cashr">cashr</a></p></li>
+<li><p><a
+href="http://stephenslab.uchicago.edu/assets/papers/lu-stephens-2016.pdf">Lu
+and Stephens</a> deals with shrinkage estimation of variances (rather
+than means). The software is <a
+href="https://github.com/stephenslab/vashr">vashr</a>.</p></li>
+<li><p><a href="https://arxiv.org/abs/1901.10679">Lu and Stephens</a>
+deals with the fact that in practice the standard errors <span
+class="math inline">\(s_j\)</span> are not known, but estimated from
+data. The methods here are in <code>ashr</code>.</p></li>
+<li><p>The PhD thesis by <a
+href="http://stephenslab.uchicago.edu/assets/papers/mengyin-thesis.pdf">Lu</a>,
+chapter 4, develops a generalized version of the <code>ashr</code>
+ideas, beyond the normal case.</p></li>
+<li><p><a href="https://doi.org/10.1080/10618600.2019.1689985">Kim et
+al</a> develops optimization methods for solving the non-parametric
+versions of the EBNM problem (and other problems). The software is <a
+href="https://github.com/stephenslab/mixsqp">mixsqp</a>.</p></li>
 </ul>
 </div>
 <div id="additional-software" class="section level3">
 <h3>Additional software</h3>
-<p>There are various unpublished projects where software has been developed or is in development (warning: may be under construction!)</p>
+<p>There are various unpublished projects where software has been
+developed or is in development (warning: may be under construction!)</p>
 <ul>
-<li><p><a href="https://github.com/stephenslab/dashr">dashr</a> performs EB shrinkage estimation for multinomial proportions using dirichlet priors</p></li>
-<li><p><a href="https://github.com/willwerscheid/flashier">flashier</a> is an extension of (flashr)[] that is faster for sparse and large data.</p></li>
-<li><p><a href="https://github.com/stephenslab/ebpm">ebpm</a> tackles the EB poisson means problem (analogous to normal means, but Poisson data).</p></li>
+<li><p><a href="https://github.com/stephenslab/dashr">dashr</a> performs
+EB shrinkage estimation for multinomial proportions using dirichlet
+priors</p></li>
+<li><p><a href="https://github.com/willwerscheid/flashier">flashier</a>
+is an extension of (flashr)[] that is faster for sparse and large
+data.</p></li>
+<li><p><a href="https://github.com/stephenslab/ebpm">ebpm</a> tackles
+the EB poisson means problem (analogous to normal means, but Poisson
+data).</p></li>
 </ul>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
 TeX fonts only; see
-http://docs.mathjax.org/en/latest/configuration.html.  This will make
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
 the presentation more consistent at the cost of the webpage sometimes
 taking slightly longer to load. Note that this only works because the
 footer is added to webpages before the MathJax javascript. -->
@@ -570,6 +737,8 @@ footer is added to webpages before the MathJax javascript. -->
     "HTML-CSS": { availableFonts: ["TeX"] }
   });
 </script>
+
+
 
 
 </div>
@@ -581,7 +750,7 @@ footer is added to webpages before the MathJax javascript. -->
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -599,7 +768,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>
@@ -608,6 +777,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')
@@ -620,7 +792,7 @@ $(document).ready(function ()  {
       theme: "bootstrap3",
       context: '.toc-content',
       hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
       },
       ignoreSelector: ".toc-ignore",
       scrollTo: 0
